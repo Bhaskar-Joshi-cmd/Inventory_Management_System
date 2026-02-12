@@ -2,13 +2,13 @@
 CREATE DATABASE IF NOT EXISTS inventory_db;
 USE inventory_db;
 
--- 2. Create CATEGORIES Table (Must be first because Products need it)
+-- 2. Created CATEGORIES Table
 CREATE TABLE IF NOT EXISTS categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- 3. Create USERS Table (For your Login Screen)
+-- 3. Created USERS Table
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'employee'))
 );
 
--- 4. Create PRODUCTS Table (The Heart of your System)
+-- 4. Created PRODUCTS Table
 CREATE TABLE IF NOT EXISTS products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS products (
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
 
--- 5. Create TRANSACTIONS Table (The History Log)
+-- 5. Created TRANSACTIONS Table
 CREATE TABLE IF NOT EXISTS transactions (
     transaction_id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
--- 6. Insert Dummy Data (So your UI isn't empty when you test)
+-- Dummy Data
 -- Add Categories
 INSERT INTO categories (category_name) VALUES ('Electronics'), ('Groceries'), ('Pharma');
 
