@@ -23,6 +23,9 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     public ProductManagementPanel() {
         initComponents();
     setupTableUI();
+    tblProducts.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblProducts.setRowHeight(30);
+        tblProducts.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
     setupTableAlerts();    // Customizes look for your Mac screen
     loadCategories();  // Populates the dropdown
     loadTableData();   // Fills the table from DB
@@ -51,16 +54,16 @@ public class ProductManagementPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         xtThreshold = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtExpiry = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        dateExpiry = new com.toedter.calendar.JDateChooser();
 
+        setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(null);
-        setLayout(new java.awt.BorderLayout());
 
+        tblProducts.setBackground(new java.awt.Color(255, 255, 255));
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -94,43 +97,79 @@ public class ProductManagementPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblProducts);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(355, 0));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 204, 0));
         jLabel1.setText("Name");
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        txtName.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 204, 0));
         jLabel2.setText("Price");
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        txtPrice.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 204, 0));
         jLabel3.setText("Quantity");
 
+        txtQuantity.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+
+        comboCategory.setBackground(new java.awt.Color(255, 255, 255));
+        comboCategory.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        comboCategory.setForeground(new java.awt.Color(0, 0, 0));
         comboCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 204, 0));
         jLabel4.setText("Category");
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 204, 0));
         jLabel5.setText("Threshold");
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        xtThreshold.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 204, 0));
         jLabel6.setText("Expiry Date");
 
-        txtExpiry.addActionListener(this::txtExpiryActionPerformed);
-
+        btnSave.setBackground(new java.awt.Color(255, 255, 255));
+        btnSave.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(0, 0, 0));
         btnSave.setText("Save");
         btnSave.addActionListener(this::btnSaveActionPerformed);
 
+        btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(0, 0, 0));
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
+        btnClear.setBackground(new java.awt.Color(255, 255, 255));
+        btnClear.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(0, 0, 0));
         btnClear.setText("Clear");
         btnClear.addActionListener(this::btnClearActionPerformed);
 
+        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setText("Delete");
         btnDelete.addActionListener(this::btnDeleteActionPerformed);
+
+        dateExpiry.setBackground(new java.awt.Color(255, 255, 255));
+        dateExpiry.setForeground(new java.awt.Color(0, 0, 0));
+        dateExpiry.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,26 +177,28 @@ public class ProductManagementPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnClear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete))
-                    .addComponent(txtExpiry, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                            .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(127, 127, 127)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(xtThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dateExpiry, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,56 +209,59 @@ public class ProductManagementPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(comboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(xtThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(xtThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(txtExpiry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(dateExpiry, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
                     .addComponent(btnUpdate)
+                    .addComponent(btnSave))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear)
                     .addComponent(btnDelete))
-                .addGap(23, 23, 23))
+                .addGap(36, 36, 36))
         );
 
-        add(jPanel1, java.awt.BorderLayout.EAST);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 830, Short.MAX_VALUE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1054, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        add(jPanel2, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtExpiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtExpiryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtExpiryActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
@@ -228,13 +272,18 @@ public class ProductManagementPanel extends javax.swing.JPanel {
         p.setCurrentQuantity(Integer.parseInt(txtQuantity.getText()));
         p.setMinThreshold(Integer.parseInt(xtThreshold.getText()));
         
-        // Simple date parsing (Assumes YYYY-MM-DD)
-        String dateStr = txtExpiry.getText().trim();
-        p.setExpiryDate(java.sql.Date.valueOf(dateStr));
+        // UPDATED: Get date from JDateChooser (dateExpiry)
+        java.util.Date selectedDate = dateExpiry.getDate(); 
+        if (selectedDate != null) {
+            // Convert java.util.Date to java.sql.Date for the Database
+            p.setExpiryDate(new java.sql.Date(selectedDate.getTime()));
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select an Expiry Date from the calendar!");
+            return;
+        }
 
-        // Get Category ID based on name (Helper needed or DAO lookup)
+        // Category ID Lookup
         String catName = comboCategory.getSelectedItem().toString();
-        // For now, assuming you have a way to get ID from name:
         int catId = new com.inventory.dao.CategoryDAO().getCategoryIdByName(catName);
         p.setCategoryId(catId);
 
@@ -243,8 +292,10 @@ public class ProductManagementPanel extends javax.swing.JPanel {
             loadTableData();
             clearFields();
         }
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Invalid input! Price, Quantity, and Threshold must be numeric.");
     } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error: Check your inputs (Price/Quantity/Date)");
+        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
     }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -252,30 +303,37 @@ public class ProductManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = tblProducts.getSelectedRow();
     if (index == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Select a product to update!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Select a product from the table to update!");
         return;
     }
 
     try {
         com.inventory.model.Product p = new com.inventory.model.Product();
-        p.setProductId((Integer) tblProducts.getValueAt(index, 0)); // Get ID from table
+        p.setProductId((Integer) tblProducts.getValueAt(index, 0)); 
         p.setName(txtName.getText().trim());
         p.setPrice(Double.parseDouble(txtPrice.getText()));
         p.setCurrentQuantity(Integer.parseInt(txtQuantity.getText()));
         p.setMinThreshold(Integer.parseInt(xtThreshold.getText()));
-        p.setExpiryDate(java.sql.Date.valueOf(txtExpiry.getText().trim()));
         
-        // Find Category ID by Name
+        // UPDATED: Get date from JDateChooser (dateExpiry)
+        java.util.Date selectedDate = dateExpiry.getDate();
+        if (selectedDate != null) {
+            p.setExpiryDate(new java.sql.Date(selectedDate.getTime()));
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select an Expiry Date!");
+            return;
+        }
+
         String catName = comboCategory.getSelectedItem().toString();
         p.setCategoryId(new com.inventory.dao.CategoryDAO().getCategoryIdByName(catName));
 
         if (new com.inventory.dao.ProductDAO().updateProduct(p)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Product Updated!");
+            javax.swing.JOptionPane.showMessageDialog(this, "Product Updated successfully!");
             loadTableData();
             clearFields();
         }
     } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Update failed. Check your data formats.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Update failed. Check your data.");
     }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -306,30 +364,57 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
         // TODO add your handling code here:
         int index = tblProducts.getSelectedRow();
-    if (index == -1) return;
+if (index == -1) return;
 
-    txtName.setText(tblProducts.getValueAt(index, 1).toString());
-    comboCategory.setSelectedItem(tblProducts.getValueAt(index, 2).toString());
-    txtPrice.setText(tblProducts.getValueAt(index, 3).toString());
-    txtQuantity.setText(tblProducts.getValueAt(index, 4).toString());
-    xtThreshold.setText(tblProducts.getValueAt(index, 5).toString());
-    txtExpiry.setText(tblProducts.getValueAt(index, 6).toString());
+// 1. Basic Text Fields
+txtName.setText(tblProducts.getValueAt(index, 1).toString());
+comboCategory.setSelectedItem(tblProducts.getValueAt(index, 2).toString());
+txtPrice.setText(tblProducts.getValueAt(index, 3).toString());
+txtQuantity.setText(tblProducts.getValueAt(index, 4).toString());
+xtThreshold.setText(tblProducts.getValueAt(index, 5).toString());
 
-    btnSave.setEnabled(false); // Switch to "Update/Delete" mode
+// 2. UPDATED: Date Selection Logic for dateExpiry
+try {
+    // Get the date string from the table (assuming it's in column 6)
+    String dateStr = tblProducts.getValueAt(index, 6).toString();
+    
+    // Convert String "yyyy-MM-dd" to java.util.Date
+    java.util.Date date = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+    
+    // Set the calendar component to this date
+    dateExpiry.setDate(date);
+} catch (Exception e) {
+    // If date is null or unparseable, clear the calendar
+    dateExpiry.setDate(null);
+}
+
+btnSave.setEnabled(false); // Switch to "Update/Delete" mode
     }//GEN-LAST:event_tblProductsMouseClicked
+   
     
     private void setupTableUI() {
-    tblProducts.setRowHeight(30);
-    javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
-    
-    for (int i = 0; i < tblProducts.getColumnCount(); i++) {
-        tblProducts.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblProducts.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblProducts.getColumnCount(); i++) {
+            tblProducts.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblProducts.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblProducts.setRowHeight(25);
     }
-    ((DefaultTableCellRenderer)tblProducts.getTableHeader().getDefaultRenderer())
-        .setHorizontalAlignment(javax.swing.JLabel.CENTER);
-    }
-    
     private void loadTableData() {
     javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblProducts.getModel();
     model.setRowCount(0);
@@ -357,7 +442,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     txtPrice.setText("");
     txtQuantity.setText("");
     xtThreshold.setText("");
-    txtExpiry.setText("");
+    dateExpiry.setDate(null);
     comboCategory.setSelectedIndex(0);
     btnSave.setEnabled(true);
     tblProducts.clearSelection();
@@ -445,6 +530,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboCategory;
+    private com.toedter.calendar.JDateChooser dateExpiry;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -452,10 +538,8 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProducts;
-    private javax.swing.JTextField txtExpiry;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtQuantity;

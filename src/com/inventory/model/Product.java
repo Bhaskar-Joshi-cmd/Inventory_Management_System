@@ -19,6 +19,8 @@ public class Product {
     private Date expiryDate;
     private int categoryId;
     private String categoryName;
+    private String barcode;
+    
 
     // Default Constructor
     public Product() {}
@@ -97,5 +99,14 @@ public class Product {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+    
+   
     
 }

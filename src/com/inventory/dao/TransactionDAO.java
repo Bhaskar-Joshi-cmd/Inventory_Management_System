@@ -48,28 +48,30 @@ public class TransactionDAO {
      * This will be used for your "History" or "Reports" screen.
      */
     public List<Transaction> getAllTransactions() {
-        List<Transaction> list = new ArrayList<>();
-        String query = "SELECT * FROM transactions ORDER BY trans_date DESC";
+        List<com.inventory.model.Transaction> list = new ArrayList<>();
+    // SQL JOIN to get the Product Name
+    String query = "SELECT t.*, p.name FROM transactions t " +
+                   "JOIN products p ON t.product_id = p.product_id " +
+                   "ORDER BY t.trans_date DESC";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
+    try (java.sql.Connection conn = com.inventory.util.DBConnection.getConnection();
+         java.sql.PreparedStatement pstmt = conn.prepareStatement(query);
+         java.sql.ResultSet rs = pstmt.executeQuery()) {
 
-            while (rs.next()) {
-                Transaction trans = new Transaction();
-                trans.setTransId(rs.getInt("trans_id"));
-                trans.setUserId(rs.getInt("user_id"));
-                trans.setProductId(rs.getInt("product_id"));
-                trans.setTransactionType(rs.getString("transaction_type"));
-                trans.setQuantityChanged(rs.getInt("quantity_changed"));
-                trans.setTransDate(rs.getTimestamp("trans_date"));
-                list.add(trans);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching transactions:");
-            e.printStackTrace();
+        while (rs.next()) {
+            com.inventory.model.Transaction trans = new com.inventory.model.Transaction();
+            trans.setTransId(rs.getInt("trans_id"));
+            trans.setUserId(rs.getInt("user_id"));
+            trans.setProductId(rs.getInt("product_id")); // You can use a String for name if preferred
+            trans.setTransactionType(rs.getString("transaction_type"));
+            trans.setQuantityChanged(rs.getInt("quantity_changed"));
+            trans.setTransDate(rs.getTimestamp("trans_date"));
+            list.add(trans);
         }
-        return list;
+    } catch (java.sql.SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
     }
     
     //Testing

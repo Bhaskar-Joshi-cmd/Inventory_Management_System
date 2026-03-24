@@ -10,13 +10,11 @@ import com.inventory.dao.CustomerDAO;
 import com.inventory.model.Customer;
 
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import com.inventory.dao.ProductDAO;
-import com.inventory.model.Product; // You'll likely need this too
-import com.inventory.dao.ProductDAO;
-import com.inventory.dao.OrderDAO;
-import com.inventory.model.Order;
+
 
 /**
  *
@@ -29,9 +27,21 @@ public class ManageOrderPanel extends javax.swing.JPanel {
      */
     public ManageOrderPanel() {
         initComponents();
+        setupTableUI1();
+        setupTableUI2();
+        setupTableUI3();
+        tblCustomer.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblCustomer.setRowHeight(30);
+        tblCustomer.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
+        tblProduct.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblProduct.setRowHeight(30);
+        tblProduct.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
+        tblCart.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblCart.setRowHeight(30);
+        tblCart.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
         ((DefaultTableModel)tblCart.getModel()).setRowCount(0); 
     loadTables();
-        loadTables();
+      txtSearch.requestFocus();
     }
 
     /**
@@ -77,11 +87,16 @@ public class ManageOrderPanel extends javax.swing.JPanel {
         txtOrderQuantity = new javax.swing.JTextField();
         btnAddToCart = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtBarcodeScan = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(null);
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(466, 0));
 
+        tblCustomer.setBackground(new java.awt.Color(255, 255, 255));
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -115,21 +130,43 @@ public class ManageOrderPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCustomer);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 204, 0));
         jLabel1.setText("Selected Customer:");
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 204, 0));
         jLabel2.setText("Name");
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        txtCustomerName.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtCustomerName.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel3.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 204, 0));
         jLabel3.setText("Mobile Number");
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        txtCustomerMobile.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtCustomerMobile.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 204, 0));
         jLabel4.setText("Search Customer");
 
+        txtSearch.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(0, 0, 0));
+        txtSearch.addActionListener(this::txtSearchActionPerformed);
+
+        btnSearch.setBackground(new java.awt.Color(255, 255, 255));
+        btnSearch.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(0, 0, 0));
         btnSearch.setText("Search");
         btnSearch.addActionListener(this::btnSearchActionPerformed);
 
+        btnClearCustomer.setBackground(new java.awt.Color(255, 255, 255));
+        btnClearCustomer.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnClearCustomer.setForeground(new java.awt.Color(0, 0, 0));
         btnClearCustomer.setText("Clear");
         btnClearCustomer.addActionListener(this::btnClearCustomerActionPerformed);
 
@@ -165,27 +202,29 @@ public class ManageOrderPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(btnClearCustomer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCustomerMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCustomerMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
         jPanel3.setPreferredSize(new java.awt.Dimension(464, 448));
 
+        tblCart.setBackground(new java.awt.Color(255, 255, 255));
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -214,17 +253,30 @@ public class ManageOrderPanel extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tblCart);
 
-        jLabel10.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel10.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel10.setFont(new java.awt.Font("STSong", 0, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 204, 0));
         jLabel10.setText("Total Amount Rs");
 
         lblTotalAmount.setEditable(false);
+        lblTotalAmount.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        lblTotalAmount.setForeground(new java.awt.Color(0, 0, 0));
 
+        btnSaveOrder.setBackground(new java.awt.Color(255, 255, 255));
+        btnSaveOrder.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnSaveOrder.setForeground(new java.awt.Color(0, 0, 0));
         btnSaveOrder.setText("Save Order Details");
         btnSaveOrder.addActionListener(this::btnSaveOrderActionPerformed);
 
+        btnReset.setBackground(new java.awt.Color(255, 255, 255));
+        btnReset.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnReset.setForeground(new java.awt.Color(0, 0, 0));
         btnReset.setText("Reset");
         btnReset.addActionListener(this::btnResetActionPerformed);
 
+        btnClose.setBackground(new java.awt.Color(255, 255, 255));
+        btnClose.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnClose.setForeground(new java.awt.Color(0, 0, 0));
         btnClose.setText("Close");
         btnClose.addActionListener(this::btnCloseActionPerformed);
 
@@ -241,7 +293,7 @@ public class ManageOrderPanel extends javax.swing.JPanel {
                         .addGap(37, 37, 37)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -255,21 +307,23 @@ public class ManageOrderPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTotalAmount))
+                    .addComponent(lblTotalAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addComponent(btnSaveOrder)
                 .addGap(31, 31, 31)
                 .addComponent(btnReset)
                 .addGap(29, 29, 29)
                 .addComponent(btnClose)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setMinimumSize(new java.awt.Dimension(355, 100));
 
+        tblProduct.setBackground(new java.awt.Color(255, 255, 255));
         tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -303,28 +357,65 @@ public class ManageOrderPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblProduct);
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 204, 0));
         jLabel5.setText("Selected Product");
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 204, 0));
         jLabel6.setText("Product Name");
 
-        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        txtProductPrice.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtProductPrice.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 0));
         jLabel7.setText("Product Price");
 
-        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        txtProductName.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtProductName.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 204, 0));
         jLabel8.setText("Product Category");
 
-        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        txtProductCategory.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtProductCategory.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 204, 0));
         jLabel9.setText("Order Quantity");
 
+        txtOrderQuantity.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        txtOrderQuantity.setForeground(new java.awt.Color(0, 0, 0));
         txtOrderQuantity.addActionListener(this::txtOrderQuantityActionPerformed);
 
+        btnAddToCart.setBackground(new java.awt.Color(255, 255, 255));
+        btnAddToCart.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnAddToCart.setForeground(new java.awt.Color(0, 0, 0));
         btnAddToCart.setText("Add To Cart");
         btnAddToCart.addActionListener(this::btnAddToCartActionPerformed);
 
+        btnClear.setBackground(new java.awt.Color(255, 255, 255));
+        btnClear.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(0, 0, 0));
         btnClear.setText("Clear");
         btnClear.addActionListener(this::btnClearActionPerformed);
+
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Scan Barcode [Enter]:");
+
+        txtBarcodeScan.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        txtBarcodeScan.setForeground(new java.awt.Color(0, 0, 0));
+        txtBarcodeScan.addActionListener(this::txtBarcodeScanActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -332,62 +423,78 @@ public class ManageOrderPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBarcodeScan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(btnAddToCart, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtOrderQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
-                                        .addComponent(btnClear))))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel6))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel5)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtOrderQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(1, 1, 1))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(btnAddToCart, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(204, 204, 204)
+                                .addComponent(btnClear)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtBarcodeScan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtOrderQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOrderQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClear)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAddToCart)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -407,9 +514,9 @@ public class ManageOrderPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -429,6 +536,7 @@ public class ManageOrderPanel extends javax.swing.JPanel {
             }
         }
     }
+    txtBarcodeScan.requestFocus();
     }//GEN-LAST:event_tblCustomerMouseClicked
 
     private void loadTables() {
@@ -523,6 +631,7 @@ public class ManageOrderPanel extends javax.swing.JPanel {
             }
         }
     }
+    txtBarcodeScan.requestFocus();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnClearCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearCustomerActionPerformed
@@ -602,10 +711,16 @@ public class ManageOrderPanel extends javax.swing.JPanel {
         // 5. Reset Product inputs for the next item
         clearProductFields();
         tblProduct.clearSelection();
+        txtBarcodeScan.setText(""); 
+        txtBarcodeScan.requestFocus();
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Invalid quantity. Please enter a whole number.");
     }
+    updateGrandTotal();
+    clearProductFields(); // Clears Name, Price, Category, Qty
+    txtBarcodeScan.setText(""); // Clears the previous barcode
+    txtBarcodeScan.requestFocus(); // Ready for next scan!
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
     private void tblProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMouseClicked
@@ -689,6 +804,7 @@ public class ManageOrderPanel extends javax.swing.JPanel {
 
     private void txtOrderQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderQuantityActionPerformed
         // TODO add your handling code here:
+        btnAddToCartActionPerformed(evt);
     }//GEN-LAST:event_txtOrderQuantityActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -780,6 +896,55 @@ public class ManageOrderPanel extends javax.swing.JPanel {
         e.printStackTrace();
     }
     }//GEN-LAST:event_btnSaveOrderActionPerformed
+
+    private void txtBarcodeScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBarcodeScanActionPerformed
+        // TODO add your handling code here:
+        String code = txtBarcodeScan.getText().trim().replaceAll("[^0-9a-zA-Z]", "");
+        
+    if (code.isEmpty()) return;
+
+    try {
+        com.inventory.dao.ProductDAO pDao = new com.inventory.dao.ProductDAO();
+        com.inventory.model.Product p = pDao.getProductByBarcode(code); // Ensure this method exists in DAO
+
+        if (p != null) {
+            
+            // Check Expiry and Stock just like the Table MouseClick logic
+            if (p.getCurrentQuantity() <= 0) {
+                JOptionPane.showMessageDialog(this, "OUT OF STOCK!");
+                txtBarcodeScan.setText("");
+                return;
+            }
+
+            // Populate the Display Fields
+            txtProductName.setText(p.getName());
+            txtProductPrice.setText(String.valueOf(p.getPrice()));
+            txtProductCategory.setText(p.getCategoryName() != null ? p.getCategoryName() : "General");
+            
+            // Highlight the product in the table for visual feedback
+            for (int i = 0; i < tblProduct.getRowCount(); i++) {
+                if (Integer.parseInt(tblProduct.getValueAt(i, 0).toString()) == p.getProductId()) {
+                    tblProduct.setRowSelectionInterval(i, i);
+                    break;
+                }
+            }
+            
+            
+            txtOrderQuantity.requestFocus();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Barcode not recognized!");
+            txtBarcodeScan.setText("");
+            txtBarcodeScan.requestFocus();
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Scan Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_txtBarcodeScanActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
     private void clearProductFields() {
     txtProductName.setText("");
     txtProductPrice.setText("");
@@ -837,6 +1002,81 @@ private void generatePDF(int orderId) {
         javax.swing.JOptionPane.showMessageDialog(this, "PDF Error: " + e.getMessage());
     }
 }
+
+
+    private void setupTableUI1() {
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblCustomer.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblCustomer.getColumnCount(); i++) {
+            tblCustomer.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblCustomer.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblCustomer.setRowHeight(25);
+    }
+    
+    
+    private void setupTableUI2() {
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblProduct.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblProduct.getColumnCount(); i++) {
+            tblProduct.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblProduct.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblProduct.setRowHeight(25);
+    }
+    
+    
+    private void setupTableUI3() {
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblCart.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblCart.getColumnCount(); i++) {
+            tblCart.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblCart.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblCart.setRowHeight(25);
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -849,6 +1089,7 @@ private void generatePDF(int orderId) {
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -867,6 +1108,7 @@ private void generatePDF(int orderId) {
     private javax.swing.JTable tblCart;
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTable tblProduct;
+    private javax.swing.JTextField txtBarcodeScan;
     private javax.swing.JTextField txtCustomerMobile;
     private javax.swing.JTextField txtCustomerName;
     private javax.swing.JTextField txtOrderQuantity;

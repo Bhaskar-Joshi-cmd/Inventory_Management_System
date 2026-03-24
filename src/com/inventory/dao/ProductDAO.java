@@ -205,4 +205,35 @@ public class ProductDAO {
     return p;
 }
     
+        public com.inventory.model.Product getProductByBarcode(String barcode) {
+    com.inventory.model.Product p = null;
+    // We join with the category table so we can get the Category Name too
+    String sql = "SELECT p.*, c.category_name FROM products p " +
+                 "LEFT JOIN categories c ON p.category_id = c.category_id " +
+                 "WHERE p.barcode = ?";
+    
+    try (java.sql.Connection con = com.inventory.util.DBConnection.getConnection();
+         java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, barcode);
+        java.sql.ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            p = new com.inventory.model.Product();
+            p.setProductId(rs.getInt("product_id"));
+            p.setName(rs.getString("name"));
+            p.setPrice(rs.getDouble("price"));
+            p.setCurrentQuantity(rs.getInt("current_quantity"));
+            p.setMinThreshold(rs.getInt("min_threshold"));
+            p.setExpiryDate(rs.getDate("expiry_date"));
+            p.setCategoryName(rs.getString("category_name"));
+            p.setBarcode(rs.getString("barcode"));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return p;
+    
+}
+    
 }

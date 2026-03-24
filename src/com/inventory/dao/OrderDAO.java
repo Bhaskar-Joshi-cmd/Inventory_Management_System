@@ -76,4 +76,25 @@ public class OrderDAO {
     }
     return generatedOrderId;
 }
+    
+    public List<Order> getOrdersByDate(java.sql.Date date) {
+    List<Order> list = new java.util.ArrayList<>();
+    String sql = "SELECT * FROM orders WHERE DATE(order_date) = ?";
+    
+    try (Connection con = DBConnection.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setDate(1, date);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Order o = new Order();
+            o.setOrderId(rs.getInt("order_id"));
+            o.setOrderDate(rs.getDate("order_date"));
+            o.setTotalAmount(rs.getDouble("total_amount"));
+            list.add(o);
+        }
+    } catch (Exception e) { e.printStackTrace(); }
+    return list;
+}
+    
+
 }

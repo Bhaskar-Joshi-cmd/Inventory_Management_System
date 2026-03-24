@@ -7,6 +7,8 @@ package com.inventory.ui;
 import com.inventory.dao.OrderDAO;
 import com.inventory.model.Order;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +22,21 @@ public class ViewOrderPanel extends javax.swing.JPanel {
      */
     public ViewOrderPanel() {
         initComponents();
+        setupTableUI1();
+        tblCustomer.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblCustomer.setRowHeight(30);
+        tblCustomer.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
+        setupTableUI2();
+        tblOrderHistory.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblOrderHistory.setRowHeight(30);
+        tblOrderHistory.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
+        setupTableUI3();
+        tblAuditLogs.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblAuditLogs.setRowHeight(30);
+        tblAuditLogs.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
         loadCustomers();
+        loadAuditLogs();
+        
     }
 
     /**
@@ -33,17 +49,51 @@ public class ViewOrderPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        txtSearchCustomer = new javax.swing.JTextField();
+        btnSearchCustomer = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblOrderHistory = new javax.swing.JTable();
         btnViewPDF = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        dateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblAuditLogs = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(null);
-        setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(470, 666));
+
+        txtSearchCustomer.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        txtSearchCustomer.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnSearchCustomer.setBackground(new java.awt.Color(255, 255, 255));
+        btnSearchCustomer.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnSearchCustomer.setForeground(new java.awt.Color(0, 0, 0));
+        btnSearchCustomer.setText("Search");
+        btnSearchCustomer.addActionListener(this::btnSearchCustomerActionPerformed);
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel2.setText("Search Customer");
+
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel5.setText("CUSTOMERS");
+
+        tblCustomer.setBackground(new java.awt.Color(255, 255, 255));
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -82,22 +132,43 @@ public class ViewOrderPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(btnSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setPreferredSize(new java.awt.Dimension(470, 100));
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(500, 0));
-
+        tblOrderHistory.setBackground(new java.awt.Color(255, 255, 255));
         tblOrderHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -119,6 +190,9 @@ public class ViewOrderPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblOrderHistory);
 
+        btnViewPDF.setBackground(new java.awt.Color(255, 255, 255));
+        btnViewPDF.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        btnViewPDF.setForeground(new java.awt.Color(0, 0, 0));
         btnViewPDF.setText("View");
         btnViewPDF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -126,54 +200,167 @@ public class ViewOrderPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("STSong", 0, 22)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel3.setText("Select Date");
+
+        dateChooser.setForeground(new java.awt.Color(0, 0, 0));
+        dateChooser.setFont(new java.awt.Font("STSong", 0, 18)); // NOI18N
+        dateChooser.addPropertyChangeListener(this::dateChooserPropertyChange);
+
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel4.setText("ORDERS");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnViewPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(227, 227, 227))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addComponent(btnViewPDF)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(btnViewPDF)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addComponent(btnViewPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
 
-        add(jPanel2, java.awt.BorderLayout.EAST);
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
+            .addGap(0, 1419, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        add(jPanel3, java.awt.BorderLayout.PAGE_START);
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+
+        tblAuditLogs.setBackground(new java.awt.Color(255, 255, 255));
+        tblAuditLogs.setForeground(new java.awt.Color(0, 0, 0));
+        tblAuditLogs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Date", "User ID", "Product ID", "Action", "Qty Changed"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblAuditLogs);
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel1.setText("SYSTEM AUDIT LOGS");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
        int row = tblCustomer.getSelectedRow();
     if (row != -1) {
         try {
-            // Ensure column 0 is your 'Customer ID'
+            // 1. Get Customer ID from the first column (Index 0)
             Object idObj = tblCustomer.getValueAt(row, 0);
             if (idObj != null) {
                 int customerId = Integer.parseInt(idObj.toString());
-                System.out.println("Loading orders for Customer ID: " + customerId); // Debugging
+                // 2. Only load the history. Do NOT put PDF code here.
                 loadOrderHistory(customerId); 
             }
         } catch (Exception e) {
@@ -183,7 +370,6 @@ public class ViewOrderPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_tblCustomerMouseClicked
 
     private void btnViewPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewPDFMouseClicked
-        // TODO add your handling code here:
         // 1. Get the selected row from the Order History table
     int index = tblOrderHistory.getSelectedRow();
     
@@ -193,12 +379,134 @@ public class ViewOrderPanel extends javax.swing.JPanel {
         return;
     }
     
-    // 3. Get the Order ID from the first column (Index 0)
-    int orderId = Integer.parseInt(tblOrderHistory.getValueAt(index, 0).toString());
-    
-    // 4. Call your existing generatePDF method
-    generatePDF(orderId);
+    try {
+        // 3. Get the Order ID from the first column
+        int orderId = Integer.parseInt(tblOrderHistory.getValueAt(index, 0).toString());
+        
+        // 4. Check if the file exists and open it
+        String path = System.getProperty("user.home") + "/Documents/Order_" + orderId + ".pdf";
+        java.io.File pdfFile = new java.io.File(path);
+        
+        if (pdfFile.exists()) {
+            java.awt.Desktop.getDesktop().open(pdfFile);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "PDF File for Order #" + orderId + " is missing from Documents.", 
+                "File Not Found", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnViewPDFMouseClicked
+
+    
+    
+    private void loadOrdersByDate(java.sql.Date date) {
+    DefaultTableModel model = (DefaultTableModel) tblOrderHistory.getModel();
+    model.setRowCount(0); // Clear the table first
+    
+    com.inventory.dao.OrderDAO orderDao = new com.inventory.dao.OrderDAO();
+    List<com.inventory.model.Order> list = orderDao.getOrdersByDate(date);
+    
+    // THE POPUP LOGIC
+    if (list == null || list.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "No orders were found for " + date.toString(), 
+            "Data Not Found", 
+            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        return; // Exit so the table stays empty
+    }
+
+    // If data exists, fill the table
+    for (com.inventory.model.Order o : list) {
+        model.addRow(new Object[]{
+            o.getOrderId(), 
+            o.getOrderDate(), 
+            o.getTotalAmount()
+        });
+    }
+}
+    private void loadAuditLogs() {
+    DefaultTableModel model = (DefaultTableModel) tblAuditLogs.getModel();
+    model.setRowCount(0);
+
+    com.inventory.dao.TransactionDAO dao = new com.inventory.dao.TransactionDAO();
+    List<com.inventory.model.Transaction> list = dao.getAllTransactions();
+    
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm");
+
+    for (com.inventory.model.Transaction t : list) {
+        String type = t.getTransactionType().equals("IN") ? "STOCK ADDED" : "ITEM SOLD";
+        String formattedDate = sdf.format(t.getTransDate());
+        
+        model.addRow(new Object[]{
+            formattedDate,         // Formatted Date String
+            t.getUserId(),         
+            t.getProductId(),      
+            type,                  
+            t.getQuantityChanged() 
+        });
+    }
+}
+    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+        // TODO add your handling code here:
+        String searchName = txtSearchCustomer.getText().trim().toLowerCase();
+    boolean found = false;
+
+    for (int i = 0; i < tblCustomer.getRowCount(); i++) {
+        String rowName = tblCustomer.getValueAt(i, 1).toString().toLowerCase();
+        if (rowName.contains(searchName)) {
+            // Highlight and scroll to customer
+            tblCustomer.setRowSelectionInterval(i, i);
+            tblCustomer.scrollRectToVisible(tblCustomer.getCellRect(i, 0, true));
+            
+            // Trigger the data load manually
+            int customerId = Integer.parseInt(tblCustomer.getValueAt(i, 0).toString());
+            loadOrderHistory(customerId);
+            
+            found = true;
+            break; 
+        }
+    }
+    if (!found) {
+        javax.swing.JOptionPane.showMessageDialog(ViewOrderPanel.this, "Customer not found.");
+    }
+    }//GEN-LAST:event_btnSearchCustomerActionPerformed
+
+    private void dateChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateChooserPropertyChange
+        // TODO add your handling code here:
+        if ("date".equals(evt.getPropertyName())) {
+            java.util.Date selectedDate = dateChooser.getDate();
+            if (selectedDate == null) return;
+
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String filterDate = sdf.format(selectedDate);
+            
+            tblOrderHistory.clearSelection(); 
+            int matchCount = 0;
+            int firstMatchRow = -1;
+
+            for (int i = 0; i < tblOrderHistory.getRowCount(); i++) {
+                String rowDate = tblOrderHistory.getValueAt(i, 1).toString(); 
+                if (rowDate.contains(filterDate)) {
+                    tblOrderHistory.addRowSelectionInterval(i, i);
+                    if (firstMatchRow == -1) firstMatchRow = i;
+                    matchCount++;
+                }
+            }
+            
+            if (matchCount > 0) {
+                tblOrderHistory.scrollRectToVisible(tblOrderHistory.getCellRect(firstMatchRow, 0, true));
+                if (matchCount > 1) {
+                    javax.swing.JOptionPane.showMessageDialog(this, 
+                        "Found " + matchCount + " orders for this date. Please click the specific one you want to View.");
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No orders found for this date.");
+            }
+        }
+    }//GEN-LAST:event_dateChooserPropertyChange
 
     
     private void generatePDF(int orderId) {
@@ -289,15 +597,97 @@ public class ViewOrderPanel extends javax.swing.JPanel {
     }
 }
     
+    private void setupTableUI1() {
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblCustomer.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblCustomer.getColumnCount(); i++) {
+            tblCustomer.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblCustomer.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblCustomer.setRowHeight(25);
+    }
+    
+    private void setupTableUI2() {
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblOrderHistory.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblOrderHistory.getColumnCount(); i++) {
+            tblOrderHistory.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblOrderHistory.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblOrderHistory.setRowHeight(25);
+    }
+    
+    private void setupTableUI3() {
+        // 1. Get the header object from your JTable
+    javax.swing.table.JTableHeader header = tblAuditLogs.getTableHeader();
+
+    // 2. Set the font to STSong, Bold, Size 18
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+
+    // 3. Set the text color (Foreground) to Black
+    header.setForeground(java.awt.Color.BLACK);
+
+    // 4. Important: Increase the header height so the larger font isn't cut off
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        for (int i = 0; i < tblAuditLogs.getColumnCount(); i++) {
+            tblAuditLogs.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        ((DefaultTableCellRenderer)tblAuditLogs.getTableHeader().getDefaultRenderer())
+            .setHorizontalAlignment(JLabel.CENTER);
+        
+        tblAuditLogs.setRowHeight(25);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JButton btnViewPDF;
+    private com.toedter.calendar.JDateChooser dateChooser;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblAuditLogs;
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTable tblOrderHistory;
+    private javax.swing.JTextField txtSearchCustomer;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,18 +19,24 @@ public class HomeFrame extends javax.swing.JFrame {
      * Creates new form HomeFrame
      * @param role
      */
-    public HomeFrame(String role) { // Now it accepts the String from LoginFrame
+    public HomeFrame(String role) { 
     initComponents();
     
-    // This is the magic line that fixes the "mini window" issue
+    // This forces the window to be "Born" maximized
     this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH); 
     
-    this.setLocationRelativeTo(null);
-    
-    // Your existing role-based logic
-    if (role.equalsIgnoreCase("User")) {
+    // THE FIX: Wait until the window is actually visible on the screen 
+    // to recalculate the mouse-click coordinates
+    java.awt.EventQueue.invokeLater(() -> {
+        revalidate();
+        repaint();
+    });
+
+    if (role.equalsIgnoreCase("admin")) {
         btnUser.setVisible(false);
     }
+    if (role.equalsIgnoreCase("admin")) {
+        lblSalesAnalysis.setVisible(false);}
 }
 
     /**
@@ -52,17 +58,23 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblSalesAnalysis = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        mainContent.setBackground(new java.awt.Color(0, 0, 0));
         mainContent.setPreferredSize(null);
         mainContent.setLayout(new java.awt.BorderLayout());
         getContentPane().add(mainContent, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(632, 100));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Order");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -70,13 +82,18 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 37;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 48, 29, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 4, 0);
         jPanel1.add(jLabel2, gridBagConstraints);
 
-        btnUser.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        btnUser.setBackground(new java.awt.Color(0, 0, 0));
+        btnUser.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        btnUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnUser.setText("Manage Users");
         btnUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -86,11 +103,16 @@ public class HomeFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 53;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 58, 29, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 4, 0);
         jPanel1.add(btnUser, gridBagConstraints);
 
-        btnCategory.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        btnCategory.setBackground(new java.awt.Color(0, 0, 0));
+        btnCategory.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        btnCategory.setForeground(new java.awt.Color(255, 255, 255));
+        btnCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCategory.setText("Manage Category");
         btnCategory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -98,13 +120,18 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 57;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 44, 29, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 4, 0);
         jPanel1.add(btnCategory, gridBagConstraints);
 
-        btnProduct.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        btnProduct.setBackground(new java.awt.Color(0, 0, 0));
+        btnProduct.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        btnProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnProduct.setText("Manage Product");
         btnProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -112,13 +139,18 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 54;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 45, 29, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 4, 0);
         jPanel1.add(btnProduct, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("View Order");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -126,13 +158,18 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 45, 29, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 4, 0);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        btnLogout.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        btnLogout.setBackground(new java.awt.Color(0, 0, 0));
+        btnLogout.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnLogout.setText("LogOut");
         btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,13 +177,18 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 39;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 52, 29, 51);
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 4, 6);
         jPanel1.add(btnLogout, gridBagConstraints);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Customers");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -154,11 +196,32 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 49;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 47, 29, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 4, 0);
         jPanel1.add(jLabel1, gridBagConstraints);
+
+        lblSalesAnalysis.setBackground(new java.awt.Color(0, 0, 0));
+        lblSalesAnalysis.setFont(new java.awt.Font("STSong", 1, 24)); // NOI18N
+        lblSalesAnalysis.setForeground(new java.awt.Color(255, 255, 255));
+        lblSalesAnalysis.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSalesAnalysis.setText("Sales Anaysis");
+        lblSalesAnalysis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSalesAnalysisMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 31;
+        gridBagConstraints.ipady = 65;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 4, 0);
+        jPanel1.add(lblSalesAnalysis, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -168,17 +231,20 @@ public class HomeFrame extends javax.swing.JFrame {
     private void btnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMouseClicked
         // TODO add your handling code here:
         // 1. Create the panel
-        UserManagementPanel userPanel = new UserManagementPanel();
-    
-        // 2. Clear the current dashboard view
-        mainContent.removeAll();
-    
-        // 3. Add the user panel to the main window
-        mainContent.add(userPanel);
-    
-        // 4. Refresh the window to show changes
-        mainContent.revalidate();
-        mainContent.repaint();
+    UserManagementPanel userPanel = new UserManagementPanel();
+
+    // 2. Clear the current dashboard view
+    mainContent.removeAll();
+
+    // 3. MANDATORY: Set the layout so it fills the screen properly
+    mainContent.setLayout(new java.awt.BorderLayout());
+
+    // 4. Add the user panel to the CENTER to fix the click-drift
+    mainContent.add(userPanel, java.awt.BorderLayout.CENTER);
+
+    // 5. Refresh the window to show changes
+    mainContent.revalidate();
+    mainContent.repaint();
     }//GEN-LAST:event_btnUserMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
@@ -288,6 +354,23 @@ public class HomeFrame extends javax.swing.JFrame {
     mainContent.repaint();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void lblSalesAnalysisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalesAnalysisMouseClicked
+        // TODO add your handling code here:
+        // 1. Create the new panel instance
+    SalesAnalysisPanel analysisPanel = new SalesAnalysisPanel();
+    
+    // 2. Clear the current view from mainContent
+    mainContent.removeAll();
+    
+    // 3. Add the Sales Analysis dashboard
+    // Ensure mainContent layout is set to BorderLayout in Properties
+    mainContent.add(analysisPanel, java.awt.BorderLayout.CENTER);
+    
+    // 4. Refresh the UI to show the new panel
+    mainContent.revalidate();
+    mainContent.repaint();
+    }//GEN-LAST:event_lblSalesAnalysisMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -310,7 +393,7 @@ public class HomeFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HomeFrame("Admin").setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new HomeFrame("superadmin").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -322,6 +405,7 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblSalesAnalysis;
     private javax.swing.JPanel mainContent;
     // End of variables declaration//GEN-END:variables
 }

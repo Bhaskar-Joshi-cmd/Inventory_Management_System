@@ -4,6 +4,8 @@
  */
 package com.inventory.ui;
 
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author bhaskarjoshi
@@ -15,6 +17,7 @@ public class CategoryManagementPanel extends javax.swing.JPanel {
      */
     public CategoryManagementPanel() {
         initComponents();
+        setupTableUI();
         // Create a center renderer
     javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
     centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
@@ -26,6 +29,9 @@ public class CategoryManagementPanel extends javax.swing.JPanel {
     ((javax.swing.table.DefaultTableCellRenderer)tblCategory.getTableHeader().getDefaultRenderer())
         .setHorizontalAlignment(javax.swing.JLabel.CENTER);
     
+    tblCategory.getTableHeader().setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+        tblCategory.setRowHeight(30);
+    tblCategory.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
         loadTableData();
     }
 
@@ -53,9 +59,10 @@ public class CategoryManagementPanel extends javax.swing.JPanel {
         setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setPreferredSize(null);
-        jPanel2.setLayout(new java.awt.BorderLayout());
 
+        tblCategory.setBackground(new java.awt.Color(255, 255, 255));
         tblCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -89,20 +96,35 @@ public class CategoryManagementPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCategory);
 
-        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
+        txtCategoryName.setFont(new java.awt.Font("STSong", 0, 20)); // NOI18N
+
+        btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setFont(new java.awt.Font("STSong", 1, 20)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(0, 0, 0));
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
+        btnReset.setBackground(new java.awt.Color(255, 255, 255));
+        btnReset.setFont(new java.awt.Font("STSong", 1, 20)); // NOI18N
+        btnReset.setForeground(new java.awt.Color(0, 0, 0));
         btnReset.setText("Reset");
         btnReset.addActionListener(this::btnResetActionPerformed);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("STSong", 1, 28)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 204, 0));
         jLabel1.setText("Catergory Name");
 
+        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setFont(new java.awt.Font("STSong", 1, 20)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setText("Delete");
         btnDelete.addActionListener(this::btnDeleteActionPerformed);
 
+        btnAdd.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdd.setFont(new java.awt.Font("STSong", 1, 20)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(0, 0, 0));
         btnAdd.setText("Save");
         btnAdd.addActionListener(this::btnAddActionPerformed);
 
@@ -111,46 +133,72 @@ public class CategoryManagementPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(106, 106, 106)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel1))
-                    .addComponent(txtCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate)
-                        .addGap(18, 18, 18)
                         .addComponent(btnReset)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)))
-                .addGap(0, 12, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUpdate))
+                    .addComponent(txtCategoryName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addComponent(jLabel1)
-                .addGap(39, 39, 39)
-                .addComponent(txtCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(42, 42, 42)
+                .addComponent(txtCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnUpdate)
+                    .addComponent(btnUpdate))
+                .addGap(51, 51, 51)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReset)
                     .addComponent(btnDelete))
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel1, java.awt.BorderLayout.EAST);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(50, 50, 50))
+        );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1108, Short.MAX_VALUE)
+            .addGap(0, 1424, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +293,31 @@ public class CategoryManagementPanel extends javax.swing.JPanel {
     txtCategoryName.setText(tblCategory.getValueAt(row, 1).toString());
     }//GEN-LAST:event_tblCategoryMouseClicked
     
+    private void setupTableUI() {
+    // 1. SET THE FONT FOR DATA ROWS (This is the fix!)
+    tblCategory.setFont(new java.awt.Font("STSong", java.awt.Font.PLAIN, 18));
+
+    // 2. Set the font for the Header
+    javax.swing.table.JTableHeader header = tblCategory.getTableHeader();
+    header.setFont(new java.awt.Font("STSong", java.awt.Font.BOLD, 18));
+    header.setForeground(java.awt.Color.BLACK);
+    header.setPreferredSize(new java.awt.Dimension(header.getWidth(), 35));
+
+    // 3. Center Alignment Logic for Rows
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
+    
+    for (int i = 0; i < tblCategory.getColumnCount(); i++) {
+        tblCategory.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    }
+
+    // 4. Center Alignment for Header Text
+    ((DefaultTableCellRenderer)tblCategory.getTableHeader().getDefaultRenderer())
+        .setHorizontalAlignment(javax.swing.JLabel.CENTER);
+    
+    // 5. Set Row Height
+    tblCategory.setRowHeight(30); 
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
