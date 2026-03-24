@@ -1,63 +1,74 @@
-# Inventory Management System
+📦 Smart Inventory Management System (Pro Edition)
+An advanced, desktop-based Inventory Management Application developed using Core Java (JDK 21), JDBC, and MySQL. This system is engineered to bridge the gap between manual record-keeping and complex ERPs by providing intelligent monitoring, hardware integration, and data-driven insights.
 
-A robust desktop-based Inventory Management Application developed using **Core Java**, **JDBC**, and **MySQL**. This project was designed to streamline the tracking of products, categories, customers, and orders, featuring automated PDF bill generation.
+🚀 Key Features
+Advanced Search & Barcode Integration: High-speed product lookup using manual search or USB Barcode Scanners, featuring automated UI focus for rapid checkouts.
 
-## 🚀 Features
+Intelligent Audit Logs: A comprehensive System Audit Trail that tracks every internal stock movement (IN/OUT) with timestamps and user accountability.
 
-* **User Management:** Secure login system with different user roles.
-* **Product & Category Tracking:** Complete CRUD (Create, Read, Update, Delete) operations for inventory items.
-* **Order Management:** Process customer orders and automatically update stock levels.
-* **PDF Generation:** Automated creation of invoices/bills using the iText library.
-* **Data Persistence:** Reliable storage using MySQL database with optimized JDBC connections.
-* **Dynamic UI:** Built using Java Swing for a responsive desktop experience.
+Business Analytics & Data Visualization: Dedicated Sales Analysis Dashboard providing insights into total revenue, average order value, and best-selling products.
 
-## 🛠️ Technical Stack
+Automated PDF Billing: Instant generation of professional invoices using the iText library, with integrated PDF viewing capabilities.
 
-* **Language:** Java (JDK 21+)
-* **Database:** MySQL 8.0+
-* **Libraries:** * JDBC (MySQL Connector/J)
-    * iText (for PDF generation)
-* **IDE:** NetBeans / IntelliJ IDEA
+Smart Alert System: Real-time monitoring for Low-Stock thresholds and Product Expiry tracking to prevent wastage.
 
-## 📋 Prerequisites
+Role-Based Security: Secure login system with access control for Admins and Staff.
 
-Before running the application, ensure you have the following installed:
-1.  **Java Development Kit (JDK):** Version 21 or higher.
-2.  **MySQL Server:** Ensure the service is running.
-3.  **MySQL Workbench:** (Optional) For easier database management.
+Relational Data Management: Optimized MySQL schema with indexed lookups for high performance.
 
-## ⚙️ Setup & Installation
+🛠️ Technical Stack
+Language: Java (JDK 21+)
 
-### 1. Database Setup
-1.  Open your MySQL terminal or Workbench.
-2.  Create a new database:
-    ```sql
-    CREATE DATABASE inventory_db;
-    ```
-3.  Import the provided `database_setup.sql` file to create the necessary tables and sample data.
+GUI Framework: Java Swing (Customized with STSong typography)
 
-### 2. Configuration
-The application uses an external configuration file for database security.
-1.  Locate the `db.properties` file in the project root.
-2.  Update the credentials to match your local MySQL setup:
-    ```properties
-    db.url=jdbc:mysql://localhost:3306/inventory_db
-    db.user=your_username
-    db.password=your_password
-    ```
+Database: MySQL 8.0+
 
-### 3. Running the Application
-* **Via IDE:** Open the project folder in NetBeans, right-click the project, and select **Run**.
-* **Via JAR:** Navigate to the `dist` folder and run:
-    ```bash
-    java -jar InventoryManagementSystem.jar
-    ```
+Libraries:
 
-## 📂 Project Structure
+mysql-connector-j-9.1.0.jar (Database Connectivity)
 
-* `src/com/inventory/ui`: Contains Swing GUI forms and panels.
-* `src/com/inventory/dao`: Data Access Objects for database operations.
-* `src/com/inventory/model`: Plain Old Java Objects (POJOs) representing entities.
-* `src/com/inventory/util`: Database connection utilities.
-* `lib/`: External JAR dependencies.
+itextpdf-5.5.13.jar (Document Generation)
 
+jcalendar-1.4.jar (Date Management)
+
+IDE: NetBeans 23+
+
+📋 Prerequisites
+Before running the application, ensure you have:
+
+Java Development Kit (JDK): Version 21 or higher.
+
+MySQL Server: Running on port 3306.
+
+Barcode Scanner: (Optional) Any standard USB HID Barcode Scanner.
+
+⚙️ Setup & Installation
+1. Database Initialization
+Open your MySQL terminal or Workbench.
+
+Create the database and backfill historical logs:
+
+SQL
+CREATE DATABASE inventory_db;
+Run the database_setup.sql script located in the root folder to initialize tables and relationships.
+
+2. Dependency Configuration
+Ensure all .jar files in the /lib folder are added to your project's Libraries/Classpath in your IDE (NetBeans/IntelliJ).
+
+3. Database Connection
+Update the DBConnection.java or db.properties with your local credentials:
+
+Properties
+db.url=jdbc:mysql://localhost:3306/inventory_db
+db.user=your_username
+db.password=your_password
+📂 Project Architecture
+src/com/inventory/ui: Modular Swing Panels (Manage Orders, Sales Analysis, Audit Logs).
+
+src/com/inventory/dao: Data Access Objects utilizing the DAO Design Pattern.
+
+src/com/inventory/model: Encapsulated POJOs (Product, Order, Transaction).
+
+src/com/inventory/util: Singleton Database connection and Image utility classes.
+
+generated_pdfs/: Default storage directory for all generated invoices.
